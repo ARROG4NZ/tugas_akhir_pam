@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">tugas_akhir_pam</string>
+    <string name="discover">Discover things of this world</string>
+    <string name="see_you">I am happy to see you again. You can \ncontinue where you left off by logging in</string>
 </resources>
