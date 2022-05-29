@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tugas_akhir_pam">
         <activity
+            android:name=".homebase"
+            android:exported="false" />
+        <activity
             android:name=".login"
             android:exported="false" />
         <activity
