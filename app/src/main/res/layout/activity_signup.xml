@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login">
+    tools:context=".signup">
 
     <TextView
         android:id="@+id/textView"
@@ -28,42 +28,13 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="164dp"
         android:fontFamily="@font/sfpro"
-        android:text="@string/see_you"
+        android:text="@string/helo"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="268dp"
-        android:layout_marginTop="384dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Forgot Password?"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/sfpro"
-        android:textColor="@color/grey_primaery"/>
-
-
-    <TextView
-        android:id="@+id/text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="568dp"
-        android:fontFamily="@font/sfpro"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="SIGN  UP"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
-        android:id="@+id/emailAdress"
+        android:id="@+id/sign_up_username"
         android:background="@drawable/login_bg_edit"
         android:layout_width="0dp"
         android:layout_height="53dp"
@@ -73,7 +44,7 @@
         android:drawableLeft="@drawable/email_l"
         android:drawablePadding="20dp"
         android:fontFamily="@font/sfpro"
-        android:hint="Email Adress"
+        android:hint="Username"
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,38 +54,59 @@
         />
 
     <EditText
-        android:id="@+id/password"
-        android:background="@drawable/login_bg_edit"
+        android:id="@+id/sign_up_email"
         android:layout_width="0dp"
         android:layout_height="53dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="28dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:drawableLeft="@drawable/password_l"
+        android:background="@drawable/login_bg_edit"
+        android:drawableLeft="@drawable/email_l"
         android:drawablePadding="20dp"
+        android:fontFamily="@font/sfpro"
+        android:hint="Email Adress"
+        android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/sfpro"/>
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_username" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="353dp"
-        android:layout_height="61dp"
+    <EditText
+        android:id="@+id/sign_up_password"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="436dp"
-        android:text="Sign In"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/login_bg_edit"
+        android:drawableLeft="@drawable/password_l"
+        android:drawablePadding="20dp"
         android:fontFamily="@font/sfpro"
-        android:backgroundTint="#475AD7"
-        android:background="@drawable/button_login_bg"
-        android:onClick="sign_in"/>
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email" />
 
+    <EditText
+        android:id="@+id/sign_up_repeat_password"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/login_bg_edit"
+        android:drawableLeft="@drawable/password_l"
+        android:drawablePadding="20dp"
+        android:fontFamily="@font/sfpro"
+        android:hint="Repeat Password"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>
