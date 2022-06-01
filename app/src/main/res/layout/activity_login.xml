@@ -60,7 +60,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="to_sign_up"/>
 
     <EditText
         android:id="@+id/emailAdress"
@@ -102,7 +103,7 @@
         android:fontFamily="@font/sfpro"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonlogin"
         android:layout_width="353dp"
         android:layout_height="61dp"
         android:layout_marginStart="28dp"
