@@ -2,9 +2,11 @@ package com.example.tugas_akhir_pam;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView nama,email,password,uid;
     private ImageView profil;
     FirebaseAuth mAuth;
+    Button CRUD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         uid = findViewById(R.id.tvuid);
         mAuth = FirebaseAuth.getInstance();
         profil = findViewById(R.id.photo);
+        CRUD = findViewById(R.id.CRUD);
     }
 
     @Override
@@ -51,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void log_out(View view) {
+
         mAuth.signOut();
+        Intent inten = new Intent(this, login.class);
+        startActivity(inten);
+    }
+
+    public void CURD(View view) {
+        Intent inten = new Intent(this, CRUD.class);
+        startActivity(inten);
     }
 }

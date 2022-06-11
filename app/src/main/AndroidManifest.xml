@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,11 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tugas_akhir_pam">
         <activity
+            android:name=".readdata"
+            android:exported="false" />
+        <activity
+            android:name=".CRUD"
+            android:exported="false" />
+        <activity
             android:name=".homebase"
             android:exported="false" />
         <activity
             android:name=".login"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +32,10 @@
         </activity>
         <activity
             android:name=".signup"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
