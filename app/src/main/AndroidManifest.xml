@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tugas_akhir_pam">
         <activity
-            android:name=".readdata"
+            android:name=".setting"
             android:exported="false" />
         <activity
             android:name=".CRUD"
