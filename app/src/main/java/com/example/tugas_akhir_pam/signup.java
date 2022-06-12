@@ -13,20 +13,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class signup extends AppCompatActivity {
     private FirebaseAuth mAUth;
-    private FirebaseUser user;
+    private FirebaseUser Fuser;
     private EditText username,email,password,repeat_password;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAUth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance("https://tugas-akhir-pam-7d020-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
         username = findViewById(R.id.sign_up_username);
         email = findViewById(R.id.sign_up_email);
         password = findViewById(R.id.sign_up_password);
@@ -39,9 +44,15 @@ public class signup extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(TAG, "membuat user dengan email dan password berhasil");
-                    user = mAUth.getCurrentUser();
-                    Toast.makeText(signup.this, user.toString(), Toast.LENGTH_SHORT).show();
-                    updateUI(user);
+                    Fuser = mAUth.getCurrentUser();
+                    user user = new user(username.getText().toString(),email.getText().toString(),password.getText().toString());
+                    mDatabase.child("users").push().setValue(user).addOnSuccessListener(signup.this, new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(signup.this, "berhasil membuat akun", Toast.LENGTH_SHORT).show();
+                            updateUI(Fuser);
+                        }
+                    });
                 }else{
                     Log.w(TAG, "gagal membuat user");
                     Toast.makeText(signup.this, task.getException().toString(),Toast.LENGTH_SHORT).show();

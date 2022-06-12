@@ -5,13 +5,21 @@ import java.util.ArrayList;
 public class user {
     public String nama;
     public String email;
+    public String password;
     public ArrayList<String> judul = new ArrayList<>();
+
+    public user(String nama, String email,String password) {
+        this.nama = nama;
+        this.email = email;
+        this.password = password;
+    }
 
     public user(){}
 
-    public user(String nama, String email, String judul) {
+    public user(String nama, String email,String password, String judul) {
         this.nama = nama;
         this.email = email;
+        this.password= password;
         this.judul.add(judul);
     }
 
