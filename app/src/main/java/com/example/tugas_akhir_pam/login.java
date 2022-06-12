@@ -74,7 +74,7 @@ public class login extends AppCompatActivity {
     //perpindahan ke halaman utama
     public void updateUI(FirebaseUser user){
         if(user != null){
-            Intent inten = new Intent(this,MainActivity.class);
+            Intent inten = new Intent(this,CRUD.class);
             startActivity(inten);
         }else {
             Toast.makeText(login.this,"Log In First",

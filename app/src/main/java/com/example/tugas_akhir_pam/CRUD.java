@@ -2,6 +2,7 @@ package com.example.tugas_akhir_pam;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class CRUD extends AppCompatActivity {
     private TextView email;
-    private EditText et_nama;
+    private EditText et_headline,et_harga,et_description;
     FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
@@ -29,7 +30,9 @@ public class CRUD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crud);
         email = findViewById(R.id.crud_email);
-        et_nama = findViewById(R.id.et_nama);
+        et_headline = findViewById(R.id.et_headline);
+        et_harga = findViewById(R.id.et_harga);
+        et_description = findViewById(R.id.et_description);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance("https://tugas-akhir-pam-7d020-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
@@ -54,14 +57,20 @@ public class CRUD extends AppCompatActivity {
     public void tambah(View view) {
         String email = user.getEmail();
         //soalnya masih belum mebuat edit nama
-        String nama = et_nama.getText().toString();
-        String judul = "ini judul";
-        user user = new user(nama,email,judul);
-        mDatabase.child("user").child("coba").setValue(user).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        String nama = et_headline.getText().toString();
+        String harga = et_harga.getText().toString();
+        String descripton= et_description.getText().toString();
+        location loc = new location(nama,descripton,harga);
+        mDatabase.child("locations").push().setValue(loc).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(CRUD.this, "data berhasil ditambah",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CRUD.this,"berhasil menambah data",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void show(View view) {
+        Intent intent= new Intent(this,homebase.class);
+        startActivity(intent);
     }
 }
