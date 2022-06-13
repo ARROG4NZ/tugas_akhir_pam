@@ -2,30 +2,52 @@ package com.example.tugas_akhir_pam;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class setting extends AppCompatActivity {
+import java.io.IOException;
+import java.util.List;
+
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class setting extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private DatabaseReference mDatabase;
     private TextView username;
     private TextView email;
     private EditText oldpass,newpass,renewpass;
     private ConstraintLayout setting, changepass;
+    private ImageView imgprofile;
+    private static final int SELECT_IMAGE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,31 +62,12 @@ public class setting extends AppCompatActivity {
         oldpass = findViewById(R.id.old_pass);
         newpass = findViewById(R.id.new_pass);
         renewpass = findViewById(R.id.renew_pass);
+        imgprofile = findViewById(R.id.imgprofile);
+        mDatabase = FirebaseDatabase.getInstance("https://tugas-akhir-pam-7d020-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
         username.setText(user.getDisplayName());
         email.setText(user.getEmail());
 
     }
-
-    public void changepass(View view) {
-        if(setting.getVisibility() == View.VISIBLE){
-            setting.setVisibility(View.GONE);
-            changepass.setVisibility(view.VISIBLE);
-            if(newpass.getText().toString().equals(renewpass.getText().toString())){
-                user.updatePassword(newpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Log.d(TAG,"password berhasil diubah");
-                            setting.setVisibility(View.VISIBLE);
-                            changepass.setVisibility(View.GONE);
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-
 
     public void log_out(View view) {
         mAuth.signOut();
@@ -84,8 +87,72 @@ public class setting extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void bookmark(View view) {
-//        Intent intent = new Intent(homebase.this,bookmark.class);
-//        startActivity(intent);
+
+    public void ubahpass(View view) {
+            String passbaru = newpass.getText().toString();
+            String repass = renewpass.getText().toString();
+            if(passbaru.equals(repass)){
+                user.updatePassword(newpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Log.d(TAG,"password berhasil diubah");
+                            setting.setVisibility(View.VISIBLE);
+                            changepass.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            }else{
+                Toast.makeText(this, "new password dan renew passowrd tidak sama", Toast.LENGTH_SHORT).show();
+            }
+    }
+
+    public void changepass(View view) {
+        if(changepass.getVisibility()== View.GONE){
+            setting.setVisibility(View.GONE);
+            changepass.setVisibility(view.VISIBLE);
+        }
+    }
+
+    public void changeProfile(View view) {
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        launchSomeActivity.launch(i);
+    }
+    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if(result.getResultCode() == RESULT_OK) {
+            Intent data = result.getData();
+            String[] galerypermision = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if(EasyPermissions.hasPermissions(this, galerypermision)){
+                Uri selectimg = data.getData();
+                String[] filepath = {MediaStore.Images.Media.DATA};
+                Cursor c = getContentResolver().query(selectimg,filepath,null,null,null);
+                c.moveToFirst();
+                int column = c.getColumnIndex(filepath[0]);
+                String pictpath = c.getString(column);
+                c.close();
+
+                Bitmap temp = (BitmapFactory.decodeFile(pictpath));
+                imgprofile.setImageBitmap(temp);
+            }else{
+                EasyPermissions.requestPermissions(this,"Access ditolak",101,galerypermision);
+            }
+
+        }
+    });
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if(EasyPermissions.somePermissionPermanentlyDenied(this, perms)){
+
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 }

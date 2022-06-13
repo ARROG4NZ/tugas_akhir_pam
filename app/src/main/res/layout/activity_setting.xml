@@ -40,7 +40,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.055">
 
-            <ImageButton
+            <ImageView
+                android:id="@+id/imgprofile"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/user_img"
@@ -101,6 +102,21 @@
                 android:textColor="@color/black"
                 android:drawableRight="@drawable/arrow_right"
                 android:onClick="changepass"/>
+
+            <TextView
+                android:layout_marginTop="12dp"
+                android:id="@+id/changephoto"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/upmenu_bg"
+                android:text="Change Photo Profile"
+                android:padding="15dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:drawableRight="@drawable/arrow_right"
+                android:onClick="changeProfile"/>
 
             <TextView
                 android:layout_marginTop="12dp"
@@ -166,7 +182,8 @@
                 android:drawableLeft="@drawable/padlock"
                 android:drawablePadding="20dp"
                 android:padding="15dp"
-                android:text="Current Password" />
+                android:hint="Current Password"
+                android:inputType="textPassword"/>
 
             <EditText
                 android:id="@+id/new_pass"
@@ -177,7 +194,8 @@
                 android:drawableLeft="@drawable/padlock"
                 android:drawablePadding="20dp"
                 android:padding="15dp"
-                android:text="New Password" />
+                android:hint="New Password"
+                android:inputType="textPassword"/>
 
             <EditText
                 android:id="@+id/renew_pass"
@@ -188,7 +206,8 @@
                 android:drawableLeft="@drawable/padlock"
                 android:drawablePadding="20dp"
                 android:padding="15dp"
-                android:text="Repeat New Password" />
+                android:hint="Repeat New Password"
+                android:inputType="textPassword"/>
 
             <Button
                 android:id="@+id/submit_pass_btn"
@@ -198,7 +217,7 @@
                 android:background="@drawable/button_login_bg"
                 android:fontFamily="@font/sfpro"
                 android:text="Change Password"
-                android:onClick="changepass"
+                android:onClick="ubahpass"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
                 tools:layout_editor_absoluteX="16dp" />
@@ -215,15 +234,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:paddingLeft="110dp"
         android:background="@drawable/bottom_bg">
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/bookmark_icon"
-        android:background="@color/grey_light"
-        android:onClick="bookmark"/>
 
-    <ImageButton
+        <ImageButton
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="50dp"

@@ -5,6 +5,7 @@ import android.net.Uri;
 import java.io.Serializable;
 
 public class location implements Serializable {
+//    private String key;
     private String nama;
     private String description;
     private String harga;
@@ -16,6 +17,14 @@ public class location implements Serializable {
 //
 //    public void setImage(Uri image) {
 //        this.image = image;
+//    }
+
+//    public String getKey() {
+//        return key;
+//    }
+//
+//    public void setKey(String key) {
+//        this.key = key;
 //    }
 
     public String getNama() {

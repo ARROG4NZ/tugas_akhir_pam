@@ -8,18 +8,32 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class adapter extends RecyclerView.Adapter<adapter.viewHolder> {
     private ArrayList<location> location;
     private Context contex;
+    private StorageReference storage;
+    private StorageReference getimg;
+
     public adapter(ArrayList<location> loc, Context ctx){
         location = loc;
         contex =ctx;
+        storage = FirebaseStorage.getInstance("gs://tugas-akhir-pam-7d020.appspot.com/").getReference();
     }
     @NonNull
     @Override
@@ -37,8 +51,15 @@ public class adapter extends RecyclerView.Adapter<adapter.viewHolder> {
 //        Uri image = location.get(position).getImage();
 //        holder.imagelocation.setImageURI(image);
         holder.headline.setText(judul);
+        getimg = storage.child("gambar_location/"+judul+".jpg");
+       getimg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+           @Override
+           public void onSuccess(Uri uri) {
+                Glide.with(contex).load(uri.toString()).into(holder.imagelocation);
+           }
+       });
         holder.bookmark.setOnClickListener(view -> {
-            //saat menekan tombol bookmark
+           //disaat menekan tombol bookmark
         });
     }
 

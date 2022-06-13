@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +26,9 @@ public class homebase extends AppCompatActivity {
     private RecyclerView rec;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<location> locations;
+    private ArrayList<location> locations = new ArrayList<>();
+    private FirebaseAuth mAuth;
+    private FirebaseUser Cuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,18 +39,24 @@ public class homebase extends AppCompatActivity {
         layoutManager= new LinearLayoutManager(this);
         rec.setLayoutManager(layoutManager);
 
-        database = FirebaseDatabase.getInstance("https://tugas-akhir-pam-7d020-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
+        mAuth = FirebaseAuth.getInstance();
+        Cuser = mAuth.getCurrentUser();
+        database = FirebaseDatabase
+                .getInstance("https://tugas-akhir-pam-7d020-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference();
+
         database.child("locations").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                locations = new ArrayList<>();
+                //mengambil semua data location dari realtime database
                 for(DataSnapshot data : snapshot.getChildren()){
                     location loc = data.getValue(location.class);
+//                    loc.setKey(data.getKey());
                     locations.add(loc);
+
                 }
                 adapter = new adapter(locations,homebase.this);
                 rec.setAdapter(adapter);
-
             }
 
             @Override
@@ -55,6 +64,8 @@ public class homebase extends AppCompatActivity {
                 Toast.makeText(homebase.this,error.getDetails()+" "+error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
     public static Intent getActIntent(Activity activity){
         return new Intent(activity,homebase.class);
@@ -69,10 +80,5 @@ public class homebase extends AppCompatActivity {
     public void home(View view) {
         Intent intent = new Intent(homebase.this,homebase.class);
         startActivity(intent);
-    }
-
-    public void bookmark(View view) {
-//        Intent intent = new Intent(homebase.this,bookmark.class);
-//        startActivity(intent);
     }
 }

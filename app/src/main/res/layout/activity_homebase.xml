@@ -34,23 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
-        android:layout_width="370dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/search_bg"
-        android:drawableLeft="@drawable/search"
-        android:fontFamily="@font/sfpro"
-        android:hint="Search"
-        android:paddingLeft="20dp"
-        android:textColorHint="#7C82A1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="312dp"
@@ -74,14 +57,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:paddingLeft="110dp"
         android:background="@drawable/bottom_bg">
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/bookmark_icon"
-            android:background="@color/grey_light"
-            android:onClick="bookmark"/>
 
         <ImageButton
             android:layout_marginLeft="20dp"
