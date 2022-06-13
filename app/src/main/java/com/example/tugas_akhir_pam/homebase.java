@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -57,5 +58,21 @@ public class homebase extends AppCompatActivity {
     }
     public static Intent getActIntent(Activity activity){
         return new Intent(activity,homebase.class);
+    }
+
+    public void setting(View view) {
+        Intent intent = new Intent(homebase.this,setting.class);
+        startActivity(intent);
+    }
+
+
+    public void home(View view) {
+        Intent intent = new Intent(homebase.this,homebase.class);
+        startActivity(intent);
+    }
+
+    public void bookmark(View view) {
+//        Intent intent = new Intent(homebase.this,bookmark.class);
+//        startActivity(intent);
     }
 }

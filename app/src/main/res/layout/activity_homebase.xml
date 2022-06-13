@@ -79,27 +79,27 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/home"
+            android:src="@drawable/bookmark_icon"
             android:background="@color/grey_light"
-            android:onClick="home"/>
+            android:onClick="bookmark"/>
 
         <ImageButton
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/email"
+            android:src="@drawable/home"
             android:layout_gravity="center_vertical"
             android:background="@color/grey_light"
-            android:onClick="email"/>
+            android:onClick="home"/>
 
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/telp"
+            android:src="@drawable/user"
             android:background="@color/grey_light"
-            android:onClick="call"/>
+            android:onClick="setting"/>
 
     </LinearLayout>
 
