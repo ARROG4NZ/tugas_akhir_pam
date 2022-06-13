@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/drawable/button_login_bg.xml" value="0.1465" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/drawable/headline_bg.xml" value="0.1465" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/drawable/left-icon_background.xml" value="0.1465" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/drawable/login_bg_edit.xml" value="0.1465" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/layout/activity_homebase.xml" value="0.25" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/layout/activity_page.xml" value="0.25" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/layout/activity_page2.xml" value="0.1" />
+        <entry key="..\:/Users/hanif/AndroidStudioProjects/tugas_akhir_pam/app/src/main/res/layout/list.xml" value="0.25" />
         <entry key="..\:/tugas_akhir_pam/app/src/main/res/layout/activity_homebase.xml" value="0.20416666666666666" />
         <entry key="..\:/tugas_akhir_pam/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/tugas_akhir_pam/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
