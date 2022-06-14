@@ -13,12 +13,14 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -33,11 +35,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -51,8 +58,9 @@ public class setting extends AppCompatActivity implements EasyPermissions.Permis
     private EditText oldpass,newpass,renewpass;
     private ConstraintLayout setting, changepass;
     private ImageView imgprofile;
-    private static final int SELECT_IMAGE = 200;
+    private String realpath;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +78,9 @@ public class setting extends AppCompatActivity implements EasyPermissions.Permis
         mDatabase = FirebaseDatabase.getInstance("https://tugas-akhir-pam-7d020-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
         username.setText(user.getDisplayName());
         email.setText(user.getEmail());
+        //mengambil gambar dari firebase
+        Uri pct = user.getPhotoUrl();
+//        imgprofile.setImageURI(pct);
 
     }
 
@@ -123,6 +134,7 @@ public class setting extends AppCompatActivity implements EasyPermissions.Permis
         startActivityForResult(i,2);
     }
 
+
     @SuppressLint("LongLogTag")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -140,12 +152,32 @@ public class setting extends AppCompatActivity implements EasyPermissions.Permis
                 c.close();
 
                 Bitmap temp = (BitmapFactory.decodeFile(pctpath));
-                imgprofile = findViewById(R.id.imgprofile);
+                //mengatur ukuran photo
+                temp = Bitmap.createScaledBitmap(temp,70,70,true);
                 imgprofile.setImageBitmap(temp);
+
+                //mengganti photo profile dengan URI
+                UserProfileChangeRequest profileupdate = new UserProfileChangeRequest.Builder().setPhotoUri(selectimg).build();
+                user.updateProfile(profileupdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                        }
+                    }
+                });
+
             }else{
                 EasyPermissions.requestPermissions(this, "Access ditolak",101, galeryPermision);
             }
         }
+    }
+
+    public static final Bitmap getBit(ContentResolver cr, Uri uri) throws FileNotFoundException,IOException {
+        InputStream input = cr.openInputStream(uri);
+        Bitmap bit = BitmapFactory.decodeStream(input);
+        input.close();
+        return bit;
     }
 
     @Override
