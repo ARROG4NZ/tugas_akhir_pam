@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tugas_akhir_pam">
+        android:theme="@style/Theme.Tugas_akhir_pam"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".bookmark"
             android:exported="false" />

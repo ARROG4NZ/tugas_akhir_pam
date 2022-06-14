@@ -5,12 +5,16 @@ import static android.content.ContentValues.TAG;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -115,33 +119,34 @@ public class setting extends AppCompatActivity implements EasyPermissions.Permis
     }
 
     public void changeProfile(View view) {
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-        launchSomeActivity.launch(i);
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i,2);
     }
-    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if(result.getResultCode() == RESULT_OK) {
-            Intent data = result.getData();
-            String[] galerypermision = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            if(EasyPermissions.hasPermissions(this, galerypermision)){
+
+    @SuppressLint("LongLogTag")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 2 ){
+            String[] galeryPermision = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if(EasyPermissions.hasPermissions(this, galeryPermision)){
                 Uri selectimg = data.getData();
                 String[] filepath = {MediaStore.Images.Media.DATA};
                 Cursor c = getContentResolver().query(selectimg,filepath,null,null,null);
                 c.moveToFirst();
-                int column = c.getColumnIndex(filepath[0]);
-                String pictpath = c.getString(column);
+
+                int columnindex = c.getColumnIndex(filepath[0]);
+                String pctpath = c.getString(columnindex);
                 c.close();
 
-                Bitmap temp = (BitmapFactory.decodeFile(pictpath));
+                Bitmap temp = (BitmapFactory.decodeFile(pctpath));
+                imgprofile = findViewById(R.id.imgprofile);
                 imgprofile.setImageBitmap(temp);
             }else{
-                EasyPermissions.requestPermissions(this,"Access ditolak",101,galerypermision);
+                EasyPermissions.requestPermissions(this, "Access ditolak",101, galeryPermision);
             }
-
         }
-    });
+    }
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
@@ -155,4 +160,5 @@ public class setting extends AppCompatActivity implements EasyPermissions.Permis
             new AppSettingsDialog.Builder(this).build().show();
         }
     }
+
 }
